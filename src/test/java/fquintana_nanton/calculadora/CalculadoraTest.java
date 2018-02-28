@@ -19,7 +19,7 @@ public class CalculadoraTest {
     }
 
     @Test
-    public void opera() {
+    public void pruebaSuma() {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("SUMA");
