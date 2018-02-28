@@ -3,13 +3,11 @@ package fquintana_nanton.calculadora;
 import java.util.Scanner;
 
 /**
- * Write a description of class Calculadora here.
+ * Calculadora proyecto Entornos de desarrollo.
  * 
  * @author fquintana nanton
  * @version 1.0
  */
-
-
 
 public class Calculadora
 {
@@ -23,41 +21,53 @@ public class Calculadora
      */
     public Calculadora()
     {
-        // initialise instance variables
-        num1 = 0;
-        num2 = 0;
-        op=op.SUMA;
-        
     }
 
     public static void main(String[] args) {
         Calculadora calc = new Calculadora();
-        calc.opera();
         
         Scanner sc = new Scanner(System.in);
+
+        boolean leer;
+
+
+        do {
+            leer = false;
+            System.out.println("Introduce el tipo de operación:");
+            try {
+                calc.ponOperacion(sc.next());
+            } catch (IllegalArgumentException ex) {
+                System.out.println("Ese tipo no existe.");
+                leer = true;
+            }
+
+        } while (leer);
         
         System.out.println("Introduce el primer número:");
-        
         calc.ponNum1(sc.nextDouble());
         
         System.out.println("Introduce el segundo número:");
         calc.ponNum2(sc.nextDouble());
-        
 
-        
+        calc.opera();
+
         double resultado = calc.dameResultado();
         System.out.println("Resultado: " + resultado);
     }
-    
+
+    /**
+     * Ajusta el Primer operando de la Calculadora
+     *
+     * @param n1 un numero double
+     *
+     */
     public void ponNum1(double n1)
     {
-        // put your code here
         this.num1=n1;
     }
     
     public void ponNum2(double n2)
     {
-        // put your code here
         this.num2=n2;
     }
 
@@ -78,26 +88,11 @@ public class Calculadora
                 break;
         }
     }
-    public void ponOperacion(String opera){
-        switch(opera){
-        
-        case "SUMA":
-            op=op.SUMA;
-            break;
-        case "RESTA":
-            op=op.RESTA;
-            break;
-        case "MULTIPLICA":
-            op=op.MULTIPLICA;
-            break;
-        case "DIVIDE":
-            op=op.DIVIDE;
-            break;
-        }
+    public void ponOperacion(String opera) throws IllegalArgumentException{
+        op = Operacion.fromString(opera);
     }
     public double dameResultado()
     {
-        // put your code here
         return rdo;
     }
     
