@@ -19,12 +19,12 @@ public class CalculadoraTest {
     }
 
     @Test
-    public void pruebaSuma() {
-        calculadora.ponNum1(1);
-        calculadora.ponNum2(2);
+    public void pruebaSumaLSuperior() {
+        calculadora.ponNum1(Double.MAX_VALUE);
+        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
         calculadora.opera();
-        Assert.assertEquals(3, calculadora.dameResultado(), 0);
+        Assert.assertEquals(Double.POSITIVE_INFINITY , calculadora.dameResultado(), 0);
     }
 
     @Test
