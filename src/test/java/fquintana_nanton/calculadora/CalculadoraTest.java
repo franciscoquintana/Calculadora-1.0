@@ -6,6 +6,8 @@ import org.junit.Test;
 
 public class CalculadoraTest {
 
+    Double TOLERANCIA = 0.0001;
+
     Calculadora calculadora;
 
 
@@ -24,7 +26,7 @@ public class CalculadoraTest {
         calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
         calculadora.opera();
-        Assert.assertEquals(Double.POSITIVE_INFINITY , calculadora.dameResultado(), 0);
+        Assert.assertEquals(Double.POSITIVE_INFINITY , calculadora.dameResultado(), TOLERANCIA);
     }
 
     @Test
@@ -33,7 +35,16 @@ public class CalculadoraTest {
         calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
         calculadora.opera();
-        Assert.assertEquals(Double.NEGATIVE_INFINITY , calculadora.dameResultado(), 0);
+        Assert.assertEquals(Double.NEGATIVE_INFINITY , calculadora.dameResultado(), TOLERANCIA);
+    }
+
+    @Test
+    public void pruebaSumaNormal() {
+        calculadora.ponNum1(5.43);
+        calculadora.ponNum2(6.69);
+        calculadora.ponOperacion("SUMA");
+        calculadora.opera();
+        Assert.assertEquals(12.12 , calculadora.dameResultado(), TOLERANCIA);
     }
 
     @Test
@@ -42,7 +53,7 @@ public class CalculadoraTest {
         calculadora.ponNum2(2);
         calculadora.ponOperacion("RESTA");
         calculadora.opera();
-        Assert.assertEquals(-1, calculadora.dameResultado(), 0);
+        Assert.assertEquals(-1, calculadora.dameResultado(), TOLERANCIA);
     }
 
     @Test
@@ -51,7 +62,7 @@ public class CalculadoraTest {
         calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICA");
         calculadora.opera();
-        Assert.assertEquals(2, calculadora.dameResultado(), 0);
+        Assert.assertEquals(2, calculadora.dameResultado(), TOLERANCIA);
     }
 
     @Test
@@ -60,6 +71,6 @@ public class CalculadoraTest {
         calculadora.ponNum2(2);
         calculadora.ponOperacion("DIVIDE");
         calculadora.opera();
-        Assert.assertEquals(0.5, calculadora.dameResultado(), 0);
+        Assert.assertEquals(0.5, calculadora.dameResultado(), TOLERANCIA);
     }
 }
