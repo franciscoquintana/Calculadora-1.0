@@ -28,6 +28,16 @@ public class CalculadoraTest {
     }
 
     @Test
+    public void pruebaSumaLInferior() {
+        calculadora.ponNum1(Double.MIN_VALUE);
+        calculadora.ponNum2(-1);
+        calculadora.ponOperacion("SUMA");
+        calculadora.opera();
+        System.out.println(calculadora.dameResultado());
+        Assert.assertEquals(Double.NEGATIVE_INFINITY , calculadora.dameResultado(), 0);
+    }
+
+    @Test
     public void pruebaResta() {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
