@@ -48,7 +48,25 @@ public class CalculadoraTest {
     }
 
     @Test
-    public void pruebaResta() {
+    public void pruebaRestaLSuperior() {
+        calculadora.ponNum1(Double.MAX_VALUE);
+        calculadora.ponNum2(-Double.MAX_VALUE);
+        calculadora.ponOperacion("RESTA");
+        calculadora.opera();
+        Assert.assertEquals(Double.POSITIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
+    }
+
+    @Test
+    public void pruebaRestaLInferior() {
+        calculadora.ponNum1(-Double.MAX_VALUE);
+        calculadora.ponNum2(Double.MAX_VALUE);
+        calculadora.ponOperacion("RESTA");
+        calculadora.opera();
+        Assert.assertEquals(Double.NEGATIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
+    }
+
+    @Test
+    public void pruebaRestaNormal() {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("RESTA");
