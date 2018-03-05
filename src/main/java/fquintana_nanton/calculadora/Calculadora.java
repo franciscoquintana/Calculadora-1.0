@@ -40,17 +40,20 @@ public class Calculadora
             }
 
         } while (leer);
-        
-        System.out.println("Introduce el primer número:");
-        calc.ponNum1(sc.nextDouble());
-        
-        System.out.println("Introduce el segundo número:");
-        calc.ponNum2(sc.nextDouble());
 
-        calc.opera();
+        calc.ponNum1(leeDouble("Introduce el primer número:"));
 
-        double resultado = calc.dameResultado();
-        System.out.println("Resultado: " + resultado);
+        calc.ponNum2(leeDouble("Introduce el segundo número:"));
+
+        try {
+            calc.opera();
+            double resultado = calc.dameResultado();
+            System.out.println("Resultado: " + resultado);
+        } catch (Exception e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+
+
     }
 
     /**
@@ -79,8 +82,9 @@ public class Calculadora
      * Realiza la operacion indicada en {@link #ponOperacion(String) ponOperacion}.
      * Con los operandos ajustados usando {@link #ponNum1(double) ponNum1} y {@link #ponNum2(double) ponNum2}.
      * Para ver el resultado usar {@link #dameResultado() dameResultado}.
+     * @throws IllegalArgumentException Cuando alguno de los operandos no es valido
      */
-    public void opera()
+    public void opera() throws Exception
     {
         switch(op){
             case SUMA:
@@ -93,6 +97,8 @@ public class Calculadora
                 rdo=num1*num2;
                 break;
             case DIVISION:
+                if (num2 == 0)
+                    throw new IllegalArgumentException("El segundo operando no puede ser cero");
                 rdo=num1/num2;
                 break;
         }
@@ -117,5 +123,23 @@ public class Calculadora
     public double dameResultado()
     {
         return rdo;
+    }
+
+    public static Double leeDouble(String str){
+        Scanner scanner = new Scanner(System.in);
+        Boolean read;
+        Double number = null;
+        do {
+            read = false;
+            try {
+                System.out.println(str);
+                number = scanner.nextDouble();
+            } catch (Exception ex) {
+                System.out.println("Introduce un numero valido");
+                read = true;
+                scanner.nextLine();
+            }
+        } while (read);
+        return number;
     }
 }

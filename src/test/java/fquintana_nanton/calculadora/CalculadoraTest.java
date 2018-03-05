@@ -38,7 +38,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaSumaLSuperior() {
+    public void pruebaSumaLSuperior() throws Exception{
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
@@ -54,7 +54,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaSumaLInferior() {
+    public void pruebaSumaLInferior() throws Exception{
         calculadora.ponNum1(-Double.MAX_VALUE);
         calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
@@ -69,7 +69,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaSumaNormal() {
+    public void pruebaSumaNormal() throws Exception {
         calculadora.ponNum1(5.43);
         calculadora.ponNum2(6.69);
         calculadora.ponOperacion("SUMA");
@@ -85,7 +85,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaRestaLSuperior() {
+    public void pruebaRestaLSuperior() throws Exception {
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("RESTA");
@@ -101,7 +101,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaRestaLInferior() {
+    public void pruebaRestaLInferior() throws Exception {
         calculadora.ponNum1(-Double.MAX_VALUE);
         calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("RESTA");
@@ -115,7 +115,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaRestaNormal() {
+    public void pruebaRestaNormal() throws Exception {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("RESTA");
@@ -129,7 +129,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaMultiplicacionLInferior() {
+    public void pruebaMultiplicacionLInferior() throws Exception {
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(-2);
         calculadora.ponOperacion("MULTIPLICACION");
@@ -143,7 +143,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaMultiplicacionLSuperior() {
+    public void pruebaMultiplicacionLSuperior() throws Exception {
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
@@ -158,7 +158,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaMultiplicacion() {
+    public void pruebaMultiplicacion() throws Exception {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
@@ -172,7 +172,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaMultiplicacionCero() {
+    public void pruebaMultiplicacionCero() throws Exception {
         calculadora.ponNum1(0);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
@@ -186,7 +186,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaDivisionNum1Zero() {
+    public void pruebaDivisionNum1Zero() throws Exception {
         calculadora.ponNum1(0);
         calculadora.ponNum2(5);
         calculadora.ponOperacion("DIVISION");
@@ -199,13 +199,12 @@ public class CalculadoraTest {
      * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
      *
      */
-    @Test
-    public void pruebaDivisionNum2Zero() {
+    @Test( expected = IllegalArgumentException.class)
+    public void pruebaDivisionNum2Zero() throws Exception {
         calculadora.ponNum1(5);
         calculadora.ponNum2(0);
         calculadora.ponOperacion("DIVISION");
         calculadora.opera();
-        Assert.assertEquals(Double.POSITIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
     }
 
     /**
@@ -214,7 +213,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaDivision() {
+    public void pruebaDivision() throws Exception {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("DIVISION");
