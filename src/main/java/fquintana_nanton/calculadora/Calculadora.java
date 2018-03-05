@@ -88,15 +88,15 @@ public class Calculadora
     {
         switch(op){
             case SUMA:
-                check();
+                check(op);
                 rdo=num1+num2;
                 break;
             case RESTA:
-                check();
+                check(op);
                 rdo=num1-num2;
                 break;
             case MULTIPLICACION:
-                check();
+                check(op);
                 rdo=num1*num2;
                 break;
             case DIVISION:
@@ -128,7 +128,7 @@ public class Calculadora
         return rdo;
     }
 
-    public static Double leeDouble(String str){
+    private static Double leeDouble(String str){
         Scanner scanner = new Scanner(System.in);
         Boolean read;
         Double number = null;
@@ -146,9 +146,18 @@ public class Calculadora
         return number;
     }
 
-    public void check() throws IllegalArgumentException {
-        if(num1 == Double.MAX_VALUE || num2 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE || num2 == -Double.MAX_VALUE)
+    private void check(Operacion op) throws IllegalArgumentException {
+        boolean check = false;
+        if (op == Operacion.MULTIPLICACION) {
+            if (((num1 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE) && (num2 != 1 && num2 != -1))
+                    || ((num2 == Double.MAX_VALUE || num2 == -Double.MAX_VALUE) && (num1 != 1 && num1 != -1)))
+                check = true;
+        }
+        else if(num1 == Double.MAX_VALUE || num2 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE || num2 == -Double.MAX_VALUE)
+            check = true;
+        if (check)
             throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
+
     }
 
 }

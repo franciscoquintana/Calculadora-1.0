@@ -12,22 +12,21 @@ import org.junit.Test;
  */
 public class CalculadoraTest {
 
-    Double TOLERANCIA = 0.0001;
+    private Double TOLERANCIA = 0.0001;
 
-    Calculadora calculadora;
+    private Calculadora calculadora;
 
     /**
      * Crea una instancia de {@link Calculadora}
      *
-     * @throws Exception
      */
     @org.junit.Before
-    public void setUp() throws Exception {
+    public void setUp(){
         calculadora = new Calculadora();
     }
 
     @org.junit.After
-    public void tearDown() throws Exception {
+    public void tearDown(){
     }
 
 
@@ -150,15 +149,14 @@ public class CalculadoraTest {
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza multiplicaciones
      *
-     *
      */
     @Test
     public void pruebaMultiplicacion() throws Exception {
         calculadora.ponNum1(1);
-        calculadora.ponNum2(2);
+        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("MULTIPLICACION");
         calculadora.opera();
-        Assert.assertEquals(2, calculadora.dameResultado(), TOLERANCIA);
+        Assert.assertEquals(Double.MAX_VALUE, calculadora.dameResultado(), TOLERANCIA);
     }
 
     /**
