@@ -3,9 +3,10 @@ package fquintana_nanton.calculadora;
 import java.util.Scanner;
 
 /**
- * Calculadora proyecto Entornos de desarrollo.
+ * Esta clase contiene los metodos para poder realizar operaciones
  * 
- * @author fquintana nanton
+ * @author fquintana
+ * @author nanton
  * @version 1.0
  */
 
@@ -17,19 +18,15 @@ public class Calculadora
     private Operacion op;
 
     /**
-     * Constructor for objects of class Calculadora
+     * Metodo principal de la aplicacion
+     * @param args No es usado actualmente
      */
-    public Calculadora()
-    {
-    }
-
     public static void main(String[] args) {
         Calculadora calc = new Calculadora();
         
         Scanner sc = new Scanner(System.in);
 
         boolean leer;
-
 
         do {
             leer = false;
@@ -65,12 +62,23 @@ public class Calculadora
     {
         this.num1=n1;
     }
-    
+
+    /**
+     * Ajusta el segundo operando de la Calculadora
+     *
+     * @param n2 un numero double
+     *
+     */
     public void ponNum2(double n2)
     {
         this.num2=n2;
     }
 
+    /**
+     * Realiza la operacion indicada en {@link #ponOperacion(String) ponOperacion}.
+     * Con los operandos ajustados usando {@link #ponNum1(double) ponNum1} y {@link #ponNum2(double) ponNum2}.
+     * Para ver el resultado usar {@link #dameResultado() dameResultado}.
+     */
     public void opera()
     {
         switch(op){
@@ -88,19 +96,25 @@ public class Calculadora
                 break;
         }
     }
-    public void ponOperacion(String opera) throws IllegalArgumentException{
-        op = Operacion.fromString(opera);
+
+    /**
+     * Ajusta la operacion que va a realizar la calculadora al usar {@link #opera()}
+     *
+     * @param operacion una {@link String} que es el nombre de una operacion de {@link Operacion}.
+     * @throws IllegalArgumentException Si la operacion indicada no existe en {@link Operacion}.
+     * @see Operacion
+     */
+    public void ponOperacion(String operacion) throws IllegalArgumentException{
+        op = Operacion.fromString(operacion);
     }
+
+    /**
+     * Devuelve el resultado de la operacion despues de haber usado {@link #opera()}
+     *
+     * @return Devuelve un {@link Double} como resultado.
+     */
     public double dameResultado()
     {
         return rdo;
-    }
-    
-    public void muestraTodosResultados(){
-        System.out.println("Num1="+Double.toString(num1)+" Num2=" + Double.toString(num2));
-        System.out.println("Suma :" + Double.toString(num1+num2));
-        System.out.println("Resta :"+ Double.toString(num1-num2));
-        System.out.println("Multiplica :" + Double.toString(num1*num2));
-        System.out.println("Divide :"+ Double.toString(num1/num2));
     }
 }

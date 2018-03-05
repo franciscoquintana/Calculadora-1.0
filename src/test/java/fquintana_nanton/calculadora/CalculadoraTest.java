@@ -1,9 +1,15 @@
 package fquintana_nanton.calculadora;
 
-
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * Tests para la clase Operacion
+ *
+ * @author fquintana
+ * @author nanton
+ * @version 1.0
+ */
 public class CalculadoraTest {
 
     Double TOLERANCIA = 0.0001;
@@ -19,6 +25,8 @@ public class CalculadoraTest {
     @org.junit.After
     public void tearDown() throws Exception {
     }
+
+
 
     @Test
     public void pruebaSumaLSuperior() {
