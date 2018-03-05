@@ -5,11 +5,11 @@ package fquintana_nanton.calculadora;
  * 
  * @author fquintana
  * @author nanton
- * @version 1.0
+ * @version 1.1
  */
 public enum Operacion
 {
-    SUMA,RESTA,MULTIPLICACION,DIVISION;
+    SUMA,RESTA,MULTIPLICACION,DIVISION,POTENCIA,RAIZ,LOGARITMO,FACTORIAL;
 
     /**
      * Devuelve una {@link Operacion} apartir de una {@link String}

@@ -7,7 +7,7 @@ import java.util.Scanner;
  * 
  * @author fquintana
  * @author nanton
- * @version 1.0
+ * @version 1.1
  */
 
 public class Calculadora
@@ -104,6 +104,18 @@ public class Calculadora
                     throw new IllegalArgumentException("El segundo operando no puede ser cero");
                 rdo=num1/num2;
                 break;
+            case POTENCIA:
+                rdo=Math.pow(num1,num2);
+                break;
+            case RAIZ:
+                rdo=Math.pow(num1, 1/num2);
+                break;
+            case LOGARITMO:
+                rdo=(Math.log10(num1) / Math.log10(num2));
+                break;
+            case FACTORIAL:
+                rdo=factorial(num1);
+            break;
         }
     }
 
@@ -149,6 +161,13 @@ public class Calculadora
     public void check() throws IllegalArgumentException {
         if(num1 == Double.MAX_VALUE || num2 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE || num2 == -Double.MAX_VALUE)
             throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
+    }
+
+    public double factorial (double numero) {
+        if (numero == 0)
+            return 1;
+        else
+            return numero * factorial(numero-1);
     }
 
 }
