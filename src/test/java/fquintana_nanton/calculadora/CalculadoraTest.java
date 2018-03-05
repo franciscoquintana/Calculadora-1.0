@@ -167,6 +167,20 @@ public class CalculadoraTest {
     }
 
     /**
+     * Realiza una prueba para comprobar que la Calculadora realiza multiplicaciones
+     *
+     *
+     */
+    @Test
+    public void pruebaMultiplicacionCero() {
+        calculadora.ponNum1(0);
+        calculadora.ponNum2(2);
+        calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.opera();
+        Assert.assertEquals(0, calculadora.dameResultado(), TOLERANCIA);
+    }
+
+    /**
      * Realiza una prueba para comprobar que la Calculadora realiza divisiones
      * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
      *
@@ -207,4 +221,6 @@ public class CalculadoraTest {
         calculadora.opera();
         Assert.assertEquals(0.5, calculadora.dameResultado(), TOLERANCIA);
     }
+
+
 }
