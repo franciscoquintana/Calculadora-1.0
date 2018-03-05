@@ -30,9 +30,10 @@ public class Calculadora
 
         do {
             leer = false;
+            System.out.println("Tipos validos: " + Operacion.getString());
             System.out.println("Introduce el tipo de operación:");
             try {
-                calc.ponOperacion(sc.next());
+                calc.ponOperacion(sc.nextLine());
             } catch (IllegalArgumentException ex) {
                 System.out.println("Ese tipo no existe.");
                 leer = true;
@@ -88,10 +89,10 @@ public class Calculadora
             case RESTA:
                 rdo=num1-num2;
                 break;
-            case MULTIPLICA:
+            case MULTIPLICACION:
                 rdo=num1*num2;
                 break;
-            case DIVIDE:
+            case DIVISION:
                 rdo=num1/num2;
                 break;
         }

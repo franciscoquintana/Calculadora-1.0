@@ -86,7 +86,7 @@ public class CalculadoraTest {
     public void pruebaMultiplicación() {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
-        calculadora.ponOperacion("MULTIPLICA");
+        calculadora.ponOperacion("MULTIPLICACION");
         calculadora.opera();
         Assert.assertEquals(2, calculadora.dameResultado(), TOLERANCIA);
     }
@@ -95,7 +95,7 @@ public class CalculadoraTest {
     public void pruebaDivision() {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
-        calculadora.ponOperacion("DIVIDE");
+        calculadora.ponOperacion("DIVISION");
         calculadora.opera();
         Assert.assertEquals(0.5, calculadora.dameResultado(), TOLERANCIA);
     }

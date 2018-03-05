@@ -9,7 +9,7 @@ package fquintana_nanton.calculadora;
  */
 public enum Operacion
 {
-    SUMA,RESTA,MULTIPLICA,DIVIDE;
+    SUMA,RESTA,MULTIPLICACION,DIVISION;
 
     /**
      * Devuelve una {@link Operacion} apartir de una {@link String}
@@ -25,6 +25,20 @@ public enum Operacion
                 return op;
 
         throw new IllegalArgumentException(soperacion + " no es una operación valida");
+    }
 
+    /**
+     * Devuelve una String que con tiene los tipos de Operacion separados por una coma.
+     * @return Una String que contiene los tipos de Operaciones.
+     */
+    public static String getString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Operacion operacion : values()) {
+            stringBuilder.append(operacion.name());
+            stringBuilder.append(", ");
+        }
+        stringBuilder.delete(stringBuilder.length()-2,stringBuilder.length());
+        return stringBuilder.toString();
     }
 }
+
