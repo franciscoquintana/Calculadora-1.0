@@ -88,12 +88,15 @@ public class Calculadora
     {
         switch(op){
             case SUMA:
+                check();
                 rdo=num1+num2;
                 break;
             case RESTA:
+                check();
                 rdo=num1-num2;
                 break;
             case MULTIPLICACION:
+                check();
                 rdo=num1*num2;
                 break;
             case DIVISION:
@@ -142,4 +145,10 @@ public class Calculadora
         } while (read);
         return number;
     }
+
+    public void check() throws IllegalArgumentException {
+        if(num1 == Double.MAX_VALUE || num2 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE || num2 == -Double.MAX_VALUE)
+            throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
+    }
+
 }

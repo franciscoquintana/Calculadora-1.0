@@ -37,13 +37,12 @@ public class CalculadoraTest {
      *
      *
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void pruebaSumaLSuperior() throws Exception{
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
         calculadora.opera();
-        Assert.assertEquals(Double.POSITIVE_INFINITY , calculadora.dameResultado(), TOLERANCIA);
     }
 
 
@@ -53,13 +52,12 @@ public class CalculadoraTest {
      *
      *
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void pruebaSumaLInferior() throws Exception{
         calculadora.ponNum1(-Double.MAX_VALUE);
         calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
         calculadora.opera();
-        Assert.assertEquals(Double.NEGATIVE_INFINITY , calculadora.dameResultado(), TOLERANCIA);
     }
 
 
@@ -84,13 +82,12 @@ public class CalculadoraTest {
      *
      *
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void pruebaRestaLSuperior() throws Exception {
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("RESTA");
         calculadora.opera();
-        Assert.assertEquals(Double.POSITIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
     }
 
 
@@ -100,13 +97,12 @@ public class CalculadoraTest {
      *
      *
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void pruebaRestaLInferior() throws Exception {
         calculadora.ponNum1(-Double.MAX_VALUE);
         calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("RESTA");
         calculadora.opera();
-        Assert.assertEquals(Double.NEGATIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
     }
 
 
@@ -128,10 +124,10 @@ public class CalculadoraTest {
      * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
      *
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void pruebaMultiplicacionLInferior() throws Exception {
-        calculadora.ponNum1(Double.MAX_VALUE);
-        calculadora.ponNum2(-2);
+        calculadora.ponNum1(-2);
+        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("MULTIPLICACION");
         calculadora.opera();
         Assert.assertEquals(Double.NEGATIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
@@ -142,13 +138,12 @@ public class CalculadoraTest {
      * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
      *
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void pruebaMultiplicacionLSuperior() throws Exception {
         calculadora.ponNum1(Double.MAX_VALUE);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
         calculadora.opera();
-        Assert.assertEquals(Double.POSITIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
     }
 
 
@@ -182,7 +177,7 @@ public class CalculadoraTest {
 
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza divisiones
-     * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
+     * y no falla al dividir 0 entre otros numeros
      *
      */
     @Test
@@ -196,7 +191,7 @@ public class CalculadoraTest {
 
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza divisiones
-     * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
+     * y no falla al dividir numeros entre 0
      *
      */
     @Test( expected = IllegalArgumentException.class)
