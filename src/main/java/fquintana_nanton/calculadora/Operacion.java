@@ -9,7 +9,21 @@ package fquintana_nanton.calculadora;
  */
 public enum Operacion
 {
-    SUMA,RESTA,MULTIPLICACION,DIVISION,POTENCIA,RAIZ,LOGARITMO,FACTORIAL;
+    SUMA(2),RESTA(2),MULTIPLICACION(2),DIVISION(2),POTENCIA(2),RAIZ(2),LOGARITMO(2),FACTORIAL(1);
+
+    private int nargs;
+
+    Operacion(int nargs){
+        this.nargs = nargs;
+    }
+
+    public int getNargs() {
+        return nargs;
+    }
+
+    public void setNargs(int nargs) {
+        this.nargs = nargs;
+    }
 
     /**
      * Devuelve una {@link Operacion} apartir de una {@link String}
