@@ -32,7 +32,8 @@ public class CalculadoraTest {
 
 
     /**
-     * Realiza una prueba para comprobar que la Calculadora realiza sumas y falla frente al desbordamiento al usar numeros superiores de los permitidos
+     * Realiza una prueba para comprobar que la Calculadora realiza sumas
+     * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
      *
      *
      */
@@ -47,7 +48,8 @@ public class CalculadoraTest {
 
 
     /**
-     * Realiza una prueba para comprobar que la Calculadora realiza sumas y falla frente al desbordamiento al usar numeros inferiores de los permitidos
+     * Realiza una prueba para comprobar que la Calculadora realiza sumas
+     * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
      *
      *
      */
@@ -77,7 +79,8 @@ public class CalculadoraTest {
 
 
     /**
-     * Realiza una prueba para comprobar que la Calculadora realiza restas y falla frente al desbordamiento al usar numeros superiores de los permitidos
+     * Realiza una prueba para comprobar que la Calculadora realiza restas
+     * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
      *
      *
      */
@@ -92,7 +95,8 @@ public class CalculadoraTest {
 
 
     /**
-     * Realiza una prueba para comprobar que la Calculadora realiza restas y falla frente al desbordamiento al usar numeros inferiores de los permitidos
+     * Realiza una prueba para comprobar que la Calculadora realiza restas
+     * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
      *
      *
      */
@@ -109,7 +113,6 @@ public class CalculadoraTest {
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza restas
      *
-     *
      */
     @Test
     public void pruebaRestaNormal() {
@@ -120,6 +123,34 @@ public class CalculadoraTest {
         Assert.assertEquals(-1, calculadora.dameResultado(), TOLERANCIA);
     }
 
+    /**
+     * Realiza una prueba para comprobar que la Calculadora realiza multiplicaciones
+     * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
+     *
+     */
+    @Test
+    public void pruebaMultiplicacionLInferior() {
+        calculadora.ponNum1(Double.MAX_VALUE);
+        calculadora.ponNum2(-2);
+        calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.opera();
+        Assert.assertEquals(Double.NEGATIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
+    }
+
+    /**
+     * Realiza una prueba para comprobar que la Calculadora realiza multiplicaciones
+     * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
+     *
+     */
+    @Test
+    public void pruebaMultiplicacionLSuperior() {
+        calculadora.ponNum1(Double.MAX_VALUE);
+        calculadora.ponNum2(2);
+        calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.opera();
+        Assert.assertEquals(Double.POSITIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
+    }
+
 
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza multiplicaciones
@@ -127,7 +158,7 @@ public class CalculadoraTest {
      *
      */
     @Test
-    public void pruebaMultiplicación() {
+    public void pruebaMultiplicacion() {
         calculadora.ponNum1(1);
         calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
@@ -135,6 +166,33 @@ public class CalculadoraTest {
         Assert.assertEquals(2, calculadora.dameResultado(), TOLERANCIA);
     }
 
+    /**
+     * Realiza una prueba para comprobar que la Calculadora realiza divisiones
+     * y no falla frente al desbordamiento al usar numeros inferiores de los permitidos
+     *
+     */
+    @Test
+    public void pruebaDivisionNum1Zero() {
+        calculadora.ponNum1(0);
+        calculadora.ponNum2(5);
+        calculadora.ponOperacion("DIVISION");
+        calculadora.opera();
+        Assert.assertEquals(0, calculadora.dameResultado(), TOLERANCIA);
+    }
+
+    /**
+     * Realiza una prueba para comprobar que la Calculadora realiza divisiones
+     * y no falla frente al desbordamiento al usar numeros superiores de los permitidos
+     *
+     */
+    @Test
+    public void pruebaDivisionNum2Zero() {
+        calculadora.ponNum1(5);
+        calculadora.ponNum2(0);
+        calculadora.ponOperacion("DIVISION");
+        calculadora.opera();
+        Assert.assertEquals(Double.POSITIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
+    }
 
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza divisiones
