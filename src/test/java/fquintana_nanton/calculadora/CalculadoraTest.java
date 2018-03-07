@@ -12,21 +12,22 @@ import org.junit.Test;
  */
 public class CalculadoraTest {
 
-    private Double TOLERANCIA = 0.0001;
+    Double TOLERANCIA = 0.0001;
 
-    private Calculadora calculadora;
+    Calculadora calculadora;
 
     /**
      * Crea una instancia de {@link Calculadora}
      *
+     * @throws Exception
      */
     @org.junit.Before
-    public void setUp(){
+    public void setUp() throws Exception {
         calculadora = new Calculadora();
     }
 
     @org.junit.After
-    public void tearDown(){
+    public void tearDown() throws Exception {
     }
 
 
@@ -38,9 +39,9 @@ public class CalculadoraTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void pruebaSumaLSuperior() throws Exception{
-        calculadora.ponNum1(Double.MAX_VALUE);
-        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
+        calculadora.ponNum(0,Double.MAX_VALUE);
+        calculadora.ponNum(1,Double.MAX_VALUE);
         calculadora.opera();
     }
 
@@ -53,9 +54,9 @@ public class CalculadoraTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void pruebaSumaLInferior() throws Exception{
-        calculadora.ponNum1(-Double.MAX_VALUE);
-        calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("SUMA");
+        calculadora.ponNum(0,-Double.MAX_VALUE);
+        calculadora.ponNum(1,-Double.MAX_VALUE);
         calculadora.opera();
     }
 
@@ -67,9 +68,9 @@ public class CalculadoraTest {
      */
     @Test
     public void pruebaSumaNormal() throws Exception {
-        calculadora.ponNum1(5.43);
-        calculadora.ponNum2(6.69);
         calculadora.ponOperacion("SUMA");
+        calculadora.ponNum(0,5.43);
+        calculadora.ponNum(1,6.69);
         calculadora.opera();
         Assert.assertEquals(12.12 , calculadora.dameResultado(), TOLERANCIA);
     }
@@ -83,9 +84,9 @@ public class CalculadoraTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void pruebaRestaLSuperior() throws Exception {
-        calculadora.ponNum1(Double.MAX_VALUE);
-        calculadora.ponNum2(-Double.MAX_VALUE);
         calculadora.ponOperacion("RESTA");
+        calculadora.ponNum(0,Double.MAX_VALUE);
+        calculadora.ponNum(1,-Double.MAX_VALUE);
         calculadora.opera();
     }
 
@@ -98,9 +99,9 @@ public class CalculadoraTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void pruebaRestaLInferior() throws Exception {
-        calculadora.ponNum1(-Double.MAX_VALUE);
-        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("RESTA");
+        calculadora.ponNum(0,-Double.MAX_VALUE);
+        calculadora.ponNum(1,Double.MAX_VALUE);
         calculadora.opera();
     }
 
@@ -111,9 +112,9 @@ public class CalculadoraTest {
      */
     @Test
     public void pruebaRestaNormal() throws Exception {
-        calculadora.ponNum1(1);
-        calculadora.ponNum2(2);
         calculadora.ponOperacion("RESTA");
+        calculadora.ponNum(0,1);
+        calculadora.ponNum(1,2);
         calculadora.opera();
         Assert.assertEquals(-1, calculadora.dameResultado(), TOLERANCIA);
     }
@@ -125,9 +126,9 @@ public class CalculadoraTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void pruebaMultiplicacionLInferior() throws Exception {
-        calculadora.ponNum1(-2);
-        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.ponNum(0,-2);
+        calculadora.ponNum(1,Double.MAX_VALUE);
         calculadora.opera();
         Assert.assertEquals(Double.NEGATIVE_INFINITY, calculadora.dameResultado(), TOLERANCIA);
     }
@@ -139,9 +140,9 @@ public class CalculadoraTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void pruebaMultiplicacionLSuperior() throws Exception {
-        calculadora.ponNum1(Double.MAX_VALUE);
-        calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.ponNum(0,Double.MAX_VALUE);
+        calculadora.ponNum(1,2);
         calculadora.opera();
     }
 
@@ -149,14 +150,15 @@ public class CalculadoraTest {
     /**
      * Realiza una prueba para comprobar que la Calculadora realiza multiplicaciones
      *
+     *
      */
     @Test
     public void pruebaMultiplicacion() throws Exception {
-        calculadora.ponNum1(1);
-        calculadora.ponNum2(Double.MAX_VALUE);
         calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.ponNum(0,1);
+        calculadora.ponNum(1,2);
         calculadora.opera();
-        Assert.assertEquals(Double.MAX_VALUE, calculadora.dameResultado(), TOLERANCIA);
+        Assert.assertEquals(2, calculadora.dameResultado(), TOLERANCIA);
     }
 
     /**
@@ -166,9 +168,9 @@ public class CalculadoraTest {
      */
     @Test
     public void pruebaMultiplicacionCero() throws Exception {
-        calculadora.ponNum1(0);
-        calculadora.ponNum2(2);
         calculadora.ponOperacion("MULTIPLICACION");
+        calculadora.ponNum(0,0);
+        calculadora.ponNum(1,2);
         calculadora.opera();
         Assert.assertEquals(0, calculadora.dameResultado(), TOLERANCIA);
     }
@@ -180,9 +182,9 @@ public class CalculadoraTest {
      */
     @Test
     public void pruebaDivisionNum1Zero() throws Exception {
-        calculadora.ponNum1(0);
-        calculadora.ponNum2(5);
         calculadora.ponOperacion("DIVISION");
+        calculadora.ponNum(0,0);
+        calculadora.ponNum(1,5);
         calculadora.opera();
         Assert.assertEquals(0, calculadora.dameResultado(), TOLERANCIA);
     }
@@ -194,9 +196,9 @@ public class CalculadoraTest {
      */
     @Test( expected = IllegalArgumentException.class)
     public void pruebaDivisionNum2Zero() throws Exception {
-        calculadora.ponNum1(5);
-        calculadora.ponNum2(0);
         calculadora.ponOperacion("DIVISION");
+        calculadora.ponNum(0,5);
+        calculadora.ponNum(1,0);
         calculadora.opera();
     }
 
@@ -207,9 +209,9 @@ public class CalculadoraTest {
      */
     @Test
     public void pruebaDivision() throws Exception {
-        calculadora.ponNum1(1);
-        calculadora.ponNum2(2);
         calculadora.ponOperacion("DIVISION");
+        calculadora.ponNum(0,1);
+        calculadora.ponNum(1,2);
         calculadora.opera();
         Assert.assertEquals(0.5, calculadora.dameResultado(), TOLERANCIA);
     }

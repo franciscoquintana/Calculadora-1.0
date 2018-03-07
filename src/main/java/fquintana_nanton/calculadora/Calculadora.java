@@ -1,5 +1,6 @@
 package fquintana_nanton.calculadora;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -7,14 +8,18 @@ import java.util.Scanner;
  * 
  * @author fquintana
  * @author nanton
- * @version 1.0
+ * @version 1.1
  */
 
 public class Calculadora
 {
-    private double num1;
-    private double num2;
+    private Double nums[];
     private double rdo;
+
+    public Operacion getOp() {
+        return op;
+    }
+
     private Operacion op;
 
     /**
@@ -23,11 +28,8 @@ public class Calculadora
      */
     public static void main(String[] args) {
         Calculadora calc = new Calculadora();
-        
         Scanner sc = new Scanner(System.in);
-
         boolean leer;
-
         do {
             leer = false;
             System.out.println("Tipos validos: " + Operacion.getString());
@@ -38,12 +40,10 @@ public class Calculadora
                 System.out.println("Ese tipo no existe.");
                 leer = true;
             }
-
         } while (leer);
 
-        calc.ponNum1(leeDouble("Introduce el primer número:"));
-
-        calc.ponNum2(leeDouble("Introduce el segundo número:"));
+        for(int i=0; i< calc.getOp().getNargs(); i++)
+            calc.ponNum(i,leeDouble(String.format("Introduce el operando %d:",i+1)));
 
         try {
             calc.opera();
@@ -57,30 +57,30 @@ public class Calculadora
     }
 
     /**
-     * Ajusta el Primer operando de la Calculadora
+     * Ajusta un operando a un valor
      *
-     * @param n1 un numero double
+     * @param narg el numero de argumento
+     * @param value el valor del parametro
      *
      */
-    public void ponNum1(double n1)
+    public void ponNum(int narg, double value)
     {
-        this.num1=n1;
+        nums[narg] = value;
     }
 
     /**
-     * Ajusta el segundo operando de la Calculadora
-     *
-     * @param n2 un numero double
+     * Devuelve el valor de un operando
      *
      */
-    public void ponNum2(double n2)
+    public Double getNum(int narg)
     {
-        this.num2=n2;
+       return nums[narg];
     }
+
 
     /**
      * Realiza la operacion indicada en {@link #ponOperacion(String) ponOperacion}.
-     * Con los operandos ajustados usando {@link #ponNum1(double) ponNum1} y {@link #ponNum2(double) ponNum2}.
+     * Con los operandos ajustados usando {@link #ponNum ponNum}.
      * Para ver el resultado usar {@link #dameResultado() dameResultado}.
      * @throws IllegalArgumentException Cuando alguno de los operandos no es valido
      */
@@ -88,22 +88,34 @@ public class Calculadora
     {
         switch(op){
             case SUMA:
-                check(op);
-                rdo=num1+num2;
+                check();
+                rdo=getNum(0) + getNum(1);
                 break;
             case RESTA:
-                check(op);
-                rdo=num1-num2;
+                check();
+                rdo=getNum(0) - getNum(1);
                 break;
             case MULTIPLICACION:
-                check(op);
-                rdo=num1*num2;
+                check();
+                rdo=getNum(0) * getNum(1);
                 break;
             case DIVISION:
-                if (num2 == 0)
+                if (getNum(1) == 0)
                     throw new IllegalArgumentException("El segundo operando no puede ser cero");
-                rdo=num1/num2;
+                rdo=getNum(0) / getNum(1);
                 break;
+            case POTENCIA:
+                rdo=Math.pow(getNum(0),getNum(1));
+                break;
+            case RAIZ:
+                rdo=Math.pow(getNum(0), 1/getNum(1));
+                break;
+            case LOGARITMO:
+                rdo=(Math.log10(getNum(0)) / Math.log10(getNum(1)));
+                break;
+            case FACTORIAL:
+                rdo=factorial(getNum(0));
+            break;
         }
     }
 
@@ -116,6 +128,10 @@ public class Calculadora
      */
     public void ponOperacion(String operacion) throws IllegalArgumentException{
         op = Operacion.fromString(operacion);
+        if (nums == null)
+            nums = new Double[op.getNargs()];
+        if (nums.length<op.getNargs())
+            Arrays.copyOf(nums,op.getNargs());
     }
 
     /**
@@ -128,7 +144,7 @@ public class Calculadora
         return rdo;
     }
 
-    private static Double leeDouble(String str){
+    public static Double leeDouble(String str){
         Scanner scanner = new Scanner(System.in);
         Boolean read;
         Double number = null;
@@ -146,18 +162,16 @@ public class Calculadora
         return number;
     }
 
-    private void check(Operacion op) throws IllegalArgumentException {
-        boolean check = false;
-        if (op == Operacion.MULTIPLICACION) {
-            if (((num1 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE) && (num2 != 1 && num2 != -1))
-                    || ((num2 == Double.MAX_VALUE || num2 == -Double.MAX_VALUE) && (num1 != 1 && num1 != -1)))
-                check = true;
-        }
-        else if(num1 == Double.MAX_VALUE || num2 == Double.MAX_VALUE || num1 == -Double.MAX_VALUE || num2 == -Double.MAX_VALUE)
-            check = true;
-        if (check)
+    public void check() throws IllegalArgumentException {
+        if(getNum(0) == Double.MAX_VALUE || getNum(1) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE)
             throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
+    }
 
+    public double factorial (double numero) {
+        if (numero == 0)
+            return 1;
+        else
+            return numero * factorial(numero-1);
     }
 
 }
