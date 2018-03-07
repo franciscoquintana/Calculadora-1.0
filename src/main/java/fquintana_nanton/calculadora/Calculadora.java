@@ -88,15 +88,15 @@ public class Calculadora
     {
         switch(op){
             case SUMA:
-                check();
+                check(op);
                 rdo=getNum(0) + getNum(1);
                 break;
             case RESTA:
-                check();
+                check(op);
                 rdo=getNum(0) - getNum(1);
                 break;
             case MULTIPLICACION:
-                check();
+                check(op);
                 rdo=getNum(0) * getNum(1);
                 break;
             case DIVISION:
@@ -162,9 +162,18 @@ public class Calculadora
         return number;
     }
 
-    public void check() throws IllegalArgumentException {
-        if(getNum(0) == Double.MAX_VALUE || getNum(1) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE)
+    private void check(Operacion op) throws IllegalArgumentException {
+        boolean check = false;
+        if (op == Operacion.MULTIPLICACION) {
+            if (((getNum(0) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE) && (getNum(1) != 1 && getNum(1) != -1))
+                    || ((getNum(1) == Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE) && (getNum(0) != 1 && getNum(0) != -1)))
+                check = true;
+        }
+        else if(getNum(0) == Double.MAX_VALUE || getNum(1) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE)
+            check = true;
+        if (check)
             throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
+
     }
 
     public double factorial (double numero) {

@@ -156,9 +156,9 @@ public class CalculadoraTest {
     public void pruebaMultiplicacion() throws Exception {
         calculadora.ponOperacion("MULTIPLICACION");
         calculadora.ponNum(0,1);
-        calculadora.ponNum(1,2);
+        calculadora.ponNum(1,Double.MAX_VALUE);
         calculadora.opera();
-        Assert.assertEquals(2, calculadora.dameResultado(), TOLERANCIA);
+        Assert.assertEquals(Double.MAX_VALUE, calculadora.dameResultado(), TOLERANCIA);
     }
 
     /**
