@@ -15,12 +15,11 @@ public class Calculadora
 {
     private Double nums[];
     private double rdo;
+    private Operacion op;
 
     public Operacion getOp() {
         return op;
     }
-
-    private Operacion op;
 
     /**
      * Metodo principal de la aplicacion
@@ -94,22 +93,18 @@ public class Calculadora
      */
     public void opera() throws IllegalArgumentException
     {
+        check();
         switch(op){
             case SUMA:
-                check(op);
                 rdo=getNum(0) + getNum(1);
                 break;
             case RESTA:
-                check(op);
                 rdo=getNum(0) - getNum(1);
                 break;
             case MULTIPLICACION:
-                check(op);
                 rdo=getNum(0) * getNum(1);
                 break;
             case DIVISION:
-                if (getNum(1) == 0)
-                    throw new IllegalArgumentException("El segundo operando no puede ser cero");
                 rdo=getNum(0) / getNum(1);
                 break;
             case POTENCIA:
@@ -152,6 +147,11 @@ public class Calculadora
         return rdo;
     }
 
+    /**
+     * Devuelve un Double que ha leido del usuario, si se introduce mal vuelve a preguntarlo
+     * @param str Una String que es la pregunta que se le hace al usuario
+     * @return Devuelve un {@link Double}.
+     */
     public static Double leeDouble(String str){
         Scanner scanner = new Scanner(System.in);
         Boolean read;
@@ -170,21 +170,55 @@ public class Calculadora
         return number;
     }
 
-    private void check(Operacion op) throws IllegalArgumentException {
-        boolean check = false;
+    /**
+     * Comprueba la Operacion a realizar
+     * @throws IllegalArgumentException si algun operando es invalido
+     */
+    private void check() throws IllegalArgumentException {
+        boolean checkmax = false;
+
+        //TODO Controlar Potencias Correctamente
+
         if (op == Operacion.MULTIPLICACION) {
             if (((getNum(0) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE) && (getNum(1) != 1 && getNum(1) != -1))
                     || ((getNum(1) == Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE) && (getNum(0) != 1 && getNum(0) != -1)))
-                check = true;
+                checkmax = true;
         }
-        else if(getNum(0) == Double.MAX_VALUE || getNum(1) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE)
-            check = true;
-        if (check)
+
+        if(op == Operacion.DIVISION) {
+            if (getNum(1) == 0)
+                throw new IllegalArgumentException("El segundo operando no puede ser cero");
+        }
+
+        if(op == Operacion.LOGARITMO) {
+            if (getNum(0) == 0)
+                throw new IllegalArgumentException("El primer operando no puede ser cero");
+            if (getNum(0) < 0 || getNum(1) < 0)
+                throw new IllegalArgumentException("Ningun operando puede ser negativo");
+            if(getNum(0) == Double.MAX_VALUE && getNum(1) == 1)
+                checkmax = true;
+        }
+        if (op == Operacion.SUMA || op == Operacion.RESTA || op == Operacion.POTENCIA || op == Operacion.DIVISION || op == Operacion.RAIZ)
+            if (getNum(0) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE)
+                checkmax = true;
+        if (op == Operacion.SUMA || op == Operacion.RESTA)
+            if (getNum(1) == Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE)
+                checkmax = true;
+
+        if (checkmax)
             throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
 
     }
 
+    /**
+     * Realiza el factorial de un numero
+     * @param numero el numero del que se va a realizar el factorial
+     * @return Un {@link Double} como resultado
+     * @throws IllegalArgumentException si el numero es invalido
+     */
     public double factorial (double numero) {
+        if (numero == Double.MAX_VALUE)
+            throw new IllegalArgumentException("El numero supera el maximo permitido");
         if (numero == 0)
             return 1;
         else
