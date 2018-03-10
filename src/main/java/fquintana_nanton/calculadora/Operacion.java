@@ -1,5 +1,8 @@
 package fquintana_nanton.calculadora;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Enumeration class Operacion
  * 
@@ -9,20 +12,72 @@ package fquintana_nanton.calculadora;
  */
 public enum Operacion
 {
-    SUMA(2),RESTA(2),MULTIPLICACION(2),DIVISION(2),POTENCIA(2),RAIZ(2),LOGARITMO(2),FACTORIAL(1);
+    /**
+     * Indica que se va a realizar una Suma
+     */
+    SUMA(new Operando("Sumando"), new Operando("Sumando")),
+    /**
+     * Indica que se va a realizar una Resta
+     */
+    RESTA(new Operando("Sustraendo"), new Operando("Minuendo")),
+    /**
+     * Indica que se va a realizar una Multiplicacion
+     */
+    MULTIPLICACION(new Operando("Multiplicando"), new Operando("Multiplicador")),
+    /**
+     * Indica que se va a realizar una Division
+     */
+    DIVISION(new Operando("Dividendo"), new Operando("Divisor")),
+    /**
+     * Indica que se va a realizar una Potencia
+     */
+    POTENCIA(new Operando("Base") , new Operando("Exponente")),
+    /**
+     * Indica que se va a realizar una Raiz
+     */
+    RAIZ(new Operando("Radical") , new Operando("Radicando")),
+    /**
+     * Indica que se va a realizar una Logaritmo
+     */
+    LOGARITMO(new Operando("Base") , new Operando("Argumento")),
+    /**
+     * Indica que se va a realizar una Factorial
+     */
+    FACTORIAL(new Operando("Numero")),
+    /**
+     * Indica el cierre del programa
+     */
+    EXIT();
 
-    private int nargs;
+    private List<Operando> Operandos;
 
-    Operacion(int nargs){
-        this.nargs = nargs;
+    /**
+     * Constructor de {@link Operacion}
+     * @param operandos Una secuencia de {@link Operando operandos}
+     */
+    Operacion(Operando... operandos){
+        ArrayList<Operando> lista = new ArrayList<>();
+        for(Operando op: operandos) {
+            lista.add(op);
+        }
+        Operandos = lista;
     }
 
+    /**
+     * Devuelve el numero de operandos de la {@link Operacion}
+     * @return Un int como nombre del {@link Operando}
+     */
     public int getNargs() {
-        return nargs;
+        return Operandos.size();
     }
 
-    public void setNargs(int nargs) {
-        this.nargs = nargs;
+    /**
+     * Devuelve un {@link Operando} de la {@link Operacion}
+     * @param pos un int que indica la posición del operando empezando desde 0
+     * @return un {@link Operando}
+     */
+    public Operando getOperando(int pos) {
+        return Operandos.get(pos);
     }
 
     /**

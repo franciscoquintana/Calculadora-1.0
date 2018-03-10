@@ -27,39 +27,46 @@ public class Calculadora
      * @param args No es usado actualmente
      */
     public static void main(String[] args) {
-        Calculadora calc = new Calculadora();
-        Scanner sc = new Scanner(System.in);
-        boolean leer;
         do {
-            leer = false;
-            System.out.println("Tipos validos: " + Operacion.getString());
-            System.out.println("Introduce el tipo de operación:");
-            try {
-                calc.ponOperacion(sc.nextLine());
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Ese tipo no existe.");
-                leer = true;
+            Calculadora calc = new Calculadora();
+            Scanner sc = new Scanner(System.in);
+            boolean leer;
+            do {
+                leer = false;
+                System.out.println("Tipos validos: " + Operacion.getString());
+                System.out.println("Introduce el tipo de operación:");
+                try {
+                    calc.ponOperacion(sc.nextLine());
+                } catch (IllegalArgumentException ex) {
+                    System.out.println("Ese tipo no existe.");
+                    leer = true;
+                }
+            } while (leer);
+
+            if(calc.getOp() == Operacion.EXIT) {
+                break;
             }
-        } while (leer);
 
-        for(int i=0; i< calc.getOp().getNargs(); i++)
-            calc.ponNum(i,leeDouble(String.format("Introduce el operando %d:",i+1)));
+            for (int i = 0; i < calc.getOp().getNargs(); i++)
+                calc.ponNum(i, leeDouble(String.format("Introduce el %s:", calc.getOp().getOperando(i).getName())));
 
-        try {
-            calc.opera();
-            double resultado = calc.dameResultado();
-            System.out.println("Resultado: " + resultado);
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-        }
+            try {
+                calc.opera();
+                double resultado = calc.dameResultado();
+                System.out.println("Resultado: " + resultado);
+            } catch (Exception e) {
+                System.out.println("ERROR: " + e.getMessage());
+            }
+            System.out.println();
+        } while (true);
 
-
+        System.out.println("Gracias por usar nuestra Calculadora");
     }
 
     /**
      * Ajusta un operando a un valor
      *
-     * @param narg el numero de argumento
+     * @param narg el numero de argumento empezando en 0
      * @param value el valor del parametro
      *
      */
@@ -70,7 +77,8 @@ public class Calculadora
 
     /**
      * Devuelve el valor de un operando
-     *
+     * @param narg el numero de argumento empezando en 0
+     * @return {@link Double} valor
      */
     public Double getNum(int narg)
     {
@@ -84,7 +92,7 @@ public class Calculadora
      * Para ver el resultado usar {@link #dameResultado() dameResultado}.
      * @throws IllegalArgumentException Cuando alguno de los operandos no es valido
      */
-    public void opera() throws Exception
+    public void opera() throws IllegalArgumentException
     {
         switch(op){
             case SUMA:
