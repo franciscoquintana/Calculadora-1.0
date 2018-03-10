@@ -167,6 +167,12 @@ public class Calculadora
                 scanner.nextLine();
             }
         } while (read);
+
+        if (number == Double.POSITIVE_INFINITY)
+            number = Double.MAX_VALUE;
+        else if (number == Double.NEGATIVE_INFINITY)
+            number = -Double.MAX_VALUE;
+
         return number;
     }
 
