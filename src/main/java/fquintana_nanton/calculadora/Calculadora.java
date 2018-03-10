@@ -108,7 +108,7 @@ public class Calculadora
                 rdo=getNum(0) / getNum(1);
                 break;
             case POTENCIA:
-                rdo=Math.pow(getNum(0),getNum(1));
+                rdo=potencia();
                 break;
             case RAIZ:
                 rdo=Math.pow(getNum(0), 1/getNum(1));
@@ -183,8 +183,6 @@ public class Calculadora
     private void check() throws IllegalArgumentException {
         boolean checkmax = false;
 
-        //TODO Controlar Potencias Correctamente
-
         if (op == Operacion.MULTIPLICACION) {
             if (((getNum(0) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE) && (getNum(1) != 1 && getNum(1) != -1))
                     || ((getNum(1) == Double.MAX_VALUE || getNum(1) == -Double.MAX_VALUE) && (getNum(0) != 1 && getNum(0) != -1)))
@@ -204,7 +202,7 @@ public class Calculadora
             if(getNum(0) == Double.MAX_VALUE && getNum(1) == 1)
                 checkmax = true;
         }
-        if (op == Operacion.SUMA || op == Operacion.RESTA || op == Operacion.POTENCIA || op == Operacion.DIVISION || op == Operacion.RAIZ)
+        if (op == Operacion.SUMA || op == Operacion.DIVISION || op == Operacion.RAIZ)
             if (getNum(0) == Double.MAX_VALUE || getNum(0) == -Double.MAX_VALUE)
                 checkmax = true;
         if (op == Operacion.SUMA || op == Operacion.RESTA)
@@ -212,7 +210,7 @@ public class Calculadora
                 checkmax = true;
 
         if (checkmax)
-            throw new IllegalArgumentException("Uno de los operando excede el máximo permitido");
+            throw new IllegalArgumentException("Uno de los operandos excede el máximo permitido");
 
     }
 
@@ -229,6 +227,18 @@ public class Calculadora
             return 1;
         else
             return numero * factorial(numero-1);
+    }
+
+    /**
+     * Realiza la potencia de los operandos asignados
+     * @return Un {@link Double} como resultado
+     * @throws IllegalArgumentException si el numero es invalido
+     */
+    public double potencia() {
+        Double resultado = Math.pow(getNum(0),getNum(1));
+        if (resultado == Double.NEGATIVE_INFINITY || resultado == Double.POSITIVE_INFINITY)
+            throw new IllegalArgumentException("Uno de los operandos excede el máximo permitido");
+        return resultado;
     }
 
 }
