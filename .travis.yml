@@ -12,5 +12,8 @@ deploy:
   api_key:
     secure: BPx6Hm56XZ+qMD57RyeOLtNaVoXZAD4fz1AEFW4q5n+56wRMWZwFE5OzzLTsIOiM5fNZ++ra82Feauj9MFyaTeMFn10Vzo+RBFHFKbgF2xp61XPitUBdRTIf1wT+nkywzzt1fIu789fR+xTq9hZE/KMrzVe4DcAm8xLcRsACPq5DUrE6XyKACaPcthqe+ZyJl5P4u8wSvHm6/uQ19dGMcKBVPKGozGhQXGi9yw8hsJenqFg3IsYo2xEfpgmD0BsD46sEk2ctUrmNg4C9r0dWq42SMLk+CQ+EDT09SKXwGUznzJXt125L3dbE868hwsQzV6L6afMCplIeIebQg2EKeKOa1fFPuAvY8ULSGDecdZk8+mOKe7KTjSZt2yLWZBUaJBi2RbKS5ZudSn9MUB3yGrj2Ei3imxyQojwp7zsRJ1ifB28zXGoxlgqER0Q0ySRN12XbKLIC9bmqqbUAEWMqpWZR/8XEb9IjwqU1VSS0YVds/lVC8XRDYdZtNM7xpWwKqe5xVpVjvFbUMw+EW682paQAqCkmA1/DCXIjwl/+KsCLQzEZEBebe7jAs40EFuh6SwoNB5ZHbasc4kIoYX5I6MSyOJt65OerNS4mJu5VxhKY4Z5a4MKJHH1TfNmqcnj5ZTaYkIu1qzTTPuYLGIEKvwAgQniQ/CtVczsKLNzc1iE=
   file: "${FOO}"
+  skip_cleanup: "true"
   on:
     repo: franciscoquintana/Calculadora-1.0
+    tags: true
+    all_branches: true
