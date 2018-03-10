@@ -217,7 +217,7 @@ public class Calculadora
      * @throws IllegalArgumentException si el numero es invalido
      */
     public double factorial (double numero) {
-        if (numero == Double.MAX_VALUE)
+        if (numero == Double.MAX_VALUE || numero == -Double.MAX_VALUE)
             throw new IllegalArgumentException("El numero supera el maximo permitido");
         if (numero == 0)
             return 1;
