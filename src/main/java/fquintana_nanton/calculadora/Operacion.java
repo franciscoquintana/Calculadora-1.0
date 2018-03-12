@@ -39,7 +39,7 @@ public enum Operacion
     /**
      * Indica que se va a realizar una Logaritmo
      */
-    LOGARITMO(new Operando("Base") , new Operando("Argumento")),
+    LOGARITMO(new Operando("Argumento"), new Operando("Base")),
     /**
      * Indica que se va a realizar una Factorial
      */
